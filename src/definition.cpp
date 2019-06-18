@@ -110,26 +110,27 @@ DefinitionImpl::~DefinitionImpl()
   delete inbodyDocs;
 }
 
-void DefinitionImpl::init(const char *df, const char *n)
+void DefinitionImpl::initNameInfo(const char *recievedFileName, const char *recievedName)
 {
-  defFileName = df;
+  defFileName = recievedFileName;
   int lastDot = defFileName.findRev('.');
   if (lastDot!=-1)
   {
     defFileExt = defFileName.mid(lastDot);
   }
-  QCString name = n;
+  QCString name = recievedName;
   if (name!="<globalScope>") 
   {
-    //extractNamespaceName(m_name,m_localName,ns);
-    localName=stripScope(n);
+    localName=stripScope(recievedName);
   }
   else
   {
-    localName=n;
+    localName=recievedName;
   }
-  //printf("m_localName=%s\n",m_localName.data());
+}
 
+void DefinitionImpl::init()
+{
   brief           = 0;
   details         = 0;
   body            = 0;
